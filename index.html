@@ -13,120 +13,30 @@
         tag.src = "https://www.youtube.com/iframe_api";
          var firstScriptTag = document.getElementsByTagName('script')[0];
          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-     var video_obj=null;
-    var video_length=0;
-    var video_name='Movie name ' + new Date().getTime();
-  
-  
-    // 3. This function creates an <iframe> (and YouTube player)
-    //    after the API code downloads.
-    var player;
-    function onYouTubeIframeAPIReady() 
-    {
-        console.log('*** iFrame embed onYouTubeIframeAPIReady');
-  
-        player = new YT.Player("player1", {
-           
-          events: {
-           
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }});
-          };
-        
-    
-  
-    // 4. The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
-        // event.target.playVideo();
-        console.log('*** iFrame embed onPlayerReady ', player);
-    }
-  
-    // 5. The API calls this function when the player's state changes.
-    //    The function indicates that when playing a video (state=1),
-    //    the player should play for six seconds and then stop.
-    var done = false;
-    function onPlayerStateChange(event) {
-        console.log('*** iFrame embed onPlayerStateChange ' + event.data + ' --- YT Player state ' + YT.PlayerState.PLAYING, player.getCurrentTime(), player);
-        /*
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 6000);
-            done = true;
-        }
-        */
-        video_name = player.getVideoData();
-        video_name = video_name.title;
-        video_length = player.getDuration();
-  
-        // if(event.data === YT.PlayerState.PLAYING && (event.data === 1 || event.data < 0)){
-        if((event.data === 1 || event.data < 0) && YT.PlayerState.PLAYING === 1){
-                //*-* PLAY
-                console.log("*-* Player is on play mode " + event.data + ' ' + player.getCurrentTime(), s);
-                if(player.getCurrentTime() === 0) {
-                    s.Media.open(video_name, video_length, 'Youtube Object Embed');
-                    s.Media.play(video_name, player.getCurrentTime());
-                } else {
-                    s.Media.play(video_name, player.getCurrentTime());
-                }
-            }else if(event.data === 2){
-                //*-* PAUSE --- CAN USE THIS FOR ENDING TOO =-- check on time -5 sec!!
-                console.log("*-* Player is on pause mode " + event.data+' '+player.getCurrentTime());
-                s.Media.stop(video_name, player.getCurrentTime());//this will cause the monitor to have media.event='STOP'
-            }else if(event.data === 3){
-                //*-* SKIPPING
-                console.log("*-* Player is on skipping mode " + event.data);
-                s.Media.stop(video_name, player.getCurrentTime());//this will cause the monitor to have media.event='STOP'
-            }else if(event.data === 0){
-                //*-* Completed
-                console.log("*-* Player has been completed " + event.data);
-                s.Media.stop(video_name, player.getCurrentTime());
-                s.Media.close(video_name);
-            }
-    }
-   
-        function onYouTubePlayerReady(playerId) {
-            video_obj=document.getElementById(playerId);//playerId
-  
-            video_obj.addEventListener("onStateChange", "onytplayerStateChange");
-  
-            video_length= video_obj.getDuration();
-  
-            console.log('*-* Youtube Video Ready - in call back function --- ' + playerId, 'video duration= ' + video_obj.getDuration(), 'video current time= ' + video_obj.getCurrentTime());
-        }
-  
-  
-        function onytplayerStateChange(newState) {
-            console.log("*-* Player's new state: " + newState);
-            //-1 --> <0 is not started
-            if(newState===1){
-                //*-* PLAY
-                console.log("*-* Player is on play mode " + newState + ' ' + video_obj.getCurrentTime(), s);
-                if(video_obj.getCurrentTime() === 0) {
-                    s.Media.open(video_name, video_length, 'Youtube Object Embed');
-                    s.Media.play(video_name, video_obj.getCurrentTime());
-  
-                    // s.Media.play(video_name, video_obj.getCurrentTime(),5,'a segment name', 30);
-                } else {
-                    s.Media.play(video_name, video_obj.getCurrentTime());
-                }
-            }else if(newState===2){
-                //*-* PAUSE --- CAN USE THIS FOR ENDING TOO =-- check on time -5 sec!!
-                console.log("*-* Player is on pause mode " + newState+' '+video_obj.getCurrentTime());
-                s.Media.stop(video_name, video_obj.getCurrentTime());//this will cause the monitor to have media.event='STOP'
-  
-                // s.Media.stop(video_name, video_obj.getCurrentTime());//this will cause the monitor to have media.event='STOP'
-                //*-*if not used (ie. not pausing) then CLOSE will kick in when the video completes otherwise video completes will also send 'STOP'
-            }else if(newState===3){
-                //*-* SKIPPING
-                console.log("*-* Player is on skipping mode " + newState);
-                s.Media.stop(video_name, video_obj.getCurrentTime());//this will cause the monitor to have media.event='STOP'
-            }else if(newState===0){
-                //*-* Completed
-                console.log("*-* Player has been completed " + newState);
-                s.Media.stop(video_name, video_obj.getCurrentTime());
-                s.Media.close(video_name);
-            }
-        }
+            var player;
+           function onYouTubeIframeAPIReady() {
+               alert("123");
+               debugger;
+               player = new YT.Player('player1', {
+                       events: {
+                           'onReady': onPlayerReady,
+                           'onStateChange': onPlayerStateChange
+                       }
+
+               });
+           }
+           function onPlayerReady(event) {
+               console.log(event)
+               document.getElementById('existing-iframe-example').style.borderColor = '#FF6D00';
+           }
+           function onPlayerStateChange(event) {
+               console.log(event)
+               if (event.data == YT.PlayerState.PLAYING) {
+                   alert("Playing..");
+               } else if (event.data == YT.PlayerState.PAUSED) {
+                   alert("Paused..");
+               }
+           }
   
   
    </script>
