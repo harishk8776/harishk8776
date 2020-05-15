@@ -8,7 +8,37 @@
         <meta name="path" content="/content/Geo/en/home" />
         <meta name="template" content="Home Template" />
         <title>MyWebStore|IndexPage </title>
-     
+     <script language="javascript">
+    var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+         var firstScriptTag = document.getElementsByTagName('script')[0];
+         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+   //onYouTubePlayerAPIReady
+   var player;
+   function onYouTubeIframeAPIReady() {
+       alert("123");
+       debugger;
+       player = new YT.Player('existing-iframe-example', {
+               events: {
+                   'onReady': onPlayerReady,
+                   'onStateChange': onPlayerStateChange
+               }
+         
+       });
+   }
+   function onPlayerReady(event) {
+       console.log(event)
+       document.getElementById('existing-iframe-example').style.borderColor = '#FF6D00';
+   }
+   function onPlayerStateChange(event) {
+       console.log(event)
+       if (event.data == YT.PlayerState.PLAYING) {
+           alert("Playing..");
+       } else if (event.data == YT.PlayerState.PAUSED) {
+           alert("Paused..");
+       }
+   }
+   </script>
         <script src="//assets.adobedtm.com/35066b6d6803/4d2f1b016d1c/launch-d34801e077c7-development.min.js" async></script>
         <script language="javascript">
       var dataObject = {"pcid":"","customer_registration_date":"","customer_first_order_date":"","shopperId":0,"portal_gua_account_id":"","customer_assignmentValue":null,"portalId":"internal","domain":"www.github.com","customer_login_status":"anonymous","sessionId":"3244622341","pageType":"home","pageName":"","currencyCode":"USD","gaSource":"www.github.com","gaMedium":"www.hostname.com"};
@@ -16,6 +46,7 @@
      
     </head>
     <body id="home">
+        <iframe id = "existing-iframe-example" width="100%" height="100%" src="https://www.youtube.com/embed/hZDUtksjnT4?enablejsapi=17origin=https://www.knorr.com" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" style="z-index: 3000;position: absolute;"></iframe>
         <h1>Sample Page</h1>
     </body>
 </html>
