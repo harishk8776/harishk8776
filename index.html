@@ -16,12 +16,12 @@
     var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
          var firstScriptTag = document.getElementsByTagName('script')[0];
-         debugger;
+   
          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             var player;
            function onYouTubeIframeAPIReady() {
                
-               debugger;
+     
                player = new YT.Player('player1', {
                        events: {
                            'onReady': onPlayerReady,
