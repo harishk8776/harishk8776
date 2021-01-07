@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alloy / Web SDK Test (manual)</title>
+    <script>
+        !function(n,o){o.forEach(function(o){n[o]||((n.__alloyNS=n.__alloyNS||
+        []).push(o),n[o]=function(){var u=arguments;return new Promise(
+        function(i,l){n[o].q.push([i,l,u])})},n[o].q=[])})}
+        (window,["alloy"]);
+    </script>
+    <script src="https://cdn1.adoberesources.net/alloy/2.3.0/alloy.js" async></script>
+</head>
+<body>
+    <h1>Testing Alloy, manual</h1>
+    <script>
+        alloy("configure", {
+            "debugEnabled": true,
+            "edgeConfigId": "3d01d15c-f0bf-4c53-997d-1cadbe14757b",
+            "orgId":"BE5121AA565821017F000101@AdobeOrg"
+        });
+        alloy("getLibraryInfo").then(function(result) {
+            console.log(result);
+        });
+        alloy("getIdentity")
+        .then(function(result) {
+            // The command succeeded.
+            console.log(result);
+        })
+        .catch(function(error) {
+            // The command failed.
+            // "error" will be an error object with additional information.
+        });
+        alloy("sendEvent", {
+            "xdm": {
+                "eventType": "web.webpagedetails.pageViews",
+                "web": {
+                    "webPageDetails": {
+                        "pageViews": {
+                            "value":1
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
